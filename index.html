@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/skel-layers.min.js"></script>
+    <script src="js/init.js"></script>
+    <noscript>
+      <link rel="stylesheet" href="css/skel.css" />
+      <link rel="stylesheet" href="css/style.css" />
+      <link rel="stylesheet" href="css/style-xlarge.css" />
+    </noscript>
+  </head>
+
+
+
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+
+    <section id="three" class="wrapper style3 special">
+        <div class="container">
+          <header class="major">
+            <h2>HW</h2>
+            <p>轉帳系統</p>
+          </header>
+        </div>
+        <div class="container 50%">
+          <form name="form" id="form" action="#" method="post">
+            <div class="row uniform">
+              <div class="6u 12u$(small)">
+                sen:
+                <input name="sen" id="sen" value="" placeholder="sen" type="text" />
+              </div>
+              <div class="6u$ 12u$(small)">
+                rev:
+                <input name="rev" id="rev" value="" placeholder="rev" type="text" />
+              </div>
+              <div class="12u$">
+                description:
+                <textarea type="text" name="description" id="description" placeholder="description" rows="6" /></textarea>
+              </div>
+              <div class="12u$">
+                <ul class="actions">
+                  <li><input value="送出" name = "submit" class="special big" type="button" onclick='processFormData();' /></li>
+                </ul>
+              </div>
+            </div>
+          </form>
+        </div>
+    </section>
+  </body>
+
+  
+
+  <script>
+    function processFormData() {
+      const senElement = document.getElementById('sen');
+      const sen = senElement.value;
+      const revElement = document.getElementById('rev');
+      const rev = revElement.value;
+      const descriptionElement= document.getElementById('description');
+      const description = descriptionElement.value;
+      
+      var api = ""
+      const data = {
+        "sen" : sen,
+        "rev" : rev,
+        "method" : "2",
+        "description" : description,
+        "txn" : "HOAPSANBTXDUQRYFNWTYIZNHPZIBYBLJNPYOGJNZ9K9MCZPWUGSIMZNBJQAPVCKGKNJYTPFQFMIUA9999"
+      }
+      
+      $.ajax({
+          url: "http://3.87.137.58:8888/send_token",
+          type: 'POST',
+          headers:{
+              "contentType" : "application/json;",
+              "X-API-key" : api
+            },
+          contentType : "application/json;",
+          data: JSON.stringify(data),
+          success: function (result) {
+            console.log("result",result);
+            alert(JSON.stringify(data));
+          },
+          error: function (error) {
+          	console.log("error",error);
+            alert("Cannot get data");
+          }
+                  });
+    }
+  </script>
